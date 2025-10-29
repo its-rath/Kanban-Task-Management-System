@@ -1,28 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { KanbanBoard } from './KanbanBoard';
-import { KanbanColumn, KanbanTask } from './KanbanBoard.types';
+import { KanbanColumn, KanbanTask, TaskPriority } from './KanbanBoard.types';
 import { useKanbanBoard } from '@/hooks/useKanbanBoard';
 
 // Sample data
 const generateSampleTasks = (count: number): Record<string, KanbanTask> => {
   const tasks: Record<string, KanbanTask> = {};
-  const priorities: Array<'low' | 'medium' | 'high' | 'urgent'> = ['low', 'medium', 'high', 'urgent'];
+  const statuses = ['todo', 'in-progress', 'review', 'done'] as const;
+  const priorities: TaskPriority[] = ['low', 'medium', 'high', 'urgent'];
   const assignees = ['John Doe', 'Jane Smith', 'Bob Johnson', 'Alice Brown'];
   const tags = ['frontend', 'backend', 'design', 'bug', 'feature', 'urgent'];
 
   for (let i = 1; i <= count; i++) {
     const taskId = `task-${i}`;
+    const status = statuses[Math.floor(Math.random() * statuses.length)];
+    const priority = priorities[Math.floor(Math.random() * priorities.length)];
+    const assignee = assignees[Math.floor(Math.random() * assignees.length)];
+    const tag1 = tags[Math.floor(Math.random() * tags.length)];
+    const tag2 = tags[Math.floor(Math.random() * tags.length)];
+    
     tasks[taskId] = {
       id: taskId,
       title: `Task ${i}: Implement feature`,
       description: `This is a detailed description for task ${i}`,
-      status: ['todo', 'in-progress', 'review', 'done'][Math.floor(Math.random() * 4)],
-      priority: priorities[Math.floor(Math.random() * priorities.length)],
-      assignee: assignees[Math.floor(Math.random() * assignees.length)],
-      tags: [
-        tags[Math.floor(Math.random() * tags.length)],
-        tags[Math.floor(Math.random() * tags.length)]
-      ],
+      status,
+      priority,
+      assignee,
+      tags: [tag1, tag2].filter((tag, index, self) => self.indexOf(tag) === index), // Ensure unique tags
       createdAt: new Date(2024, 0, Math.floor(Math.random() * 28) + 1),
       dueDate: Math.random() > 0.5 ? new Date(2024, 1, Math.floor(Math.random() * 28) + 1) : undefined,
     };
@@ -58,14 +62,16 @@ const KanbanBoardWrapper = ({ taskCount }: { taskCount: number }) => {
   });
 
   return (
-    <KanbanBoard
-      columns={boardColumns}
-      tasks={boardTasks}
-      onTaskMove={handleTaskMove}
-      onTaskCreate={handleTaskCreate}
-      onTaskUpdate={handleTaskUpdate}
-      onTaskDelete={handleTaskDelete}
-    />
+    <div className="p-4 h-screen bg-gray-50">
+      <KanbanBoard
+        columns={boardColumns}
+        tasks={boardTasks}
+        onTaskMove={handleTaskMove}
+        onTaskCreate={handleTaskCreate}
+        onTaskUpdate={handleTaskUpdate}
+        onTaskDelete={handleTaskDelete}
+      />
+    </div>
   );
 };
 
@@ -81,11 +87,11 @@ const meta: Meta<typeof KanbanBoard> = {
     },
   },
   tags: ['autodocs'],
-};
+} as const;
 
 export default meta;
 
-type Story = StoryObj<typeof KanbanBoard>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => <KanbanBoardWrapper taskCount={12} />,
