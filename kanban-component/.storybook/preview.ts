@@ -4,34 +4,24 @@ import '../src/styles/globals.css';
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
-
     controls: {
       matchers: {
-        color: /(background|color)$/i,
+        color: /(background|color|fill|stroke)$/i,
         date: /Date$/,
       },
+      expanded: true,
     },
-
     backgrounds: {
       default: 'light',
       values: [
-        {
-          name: 'light',
-          value: '#f4f4f5',
-        },
-        {
-          name: 'dark',
-          value: '#18181b',
-        },
+        { name: 'light', value: '#ffffff' },
+        { name: 'dark', value: '#1e293b' },
       ],
     },
-
     a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
       test: 'todo'
-    }
+    },
+    layout: 'centered',
   },
 };
 

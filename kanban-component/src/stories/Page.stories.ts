@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { expect } from '@storybook/jest';
-import { userEvent, within } from '@storybook/testing-library';
+import { within, userEvent, expect } from '@storybook/test';
 
 import { Page } from './Page';
 
@@ -19,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const LoggedOut: Story = {};
 
-// More on component testing: https://storybook.js.org/docs/writing-tests/interaction-testing
+// More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
 export const LoggedIn: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

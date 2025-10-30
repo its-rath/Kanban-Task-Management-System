@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { action } from '@storybook/addon-actions';
-
 import { Header } from './Header';
 
 const meta = {
@@ -12,11 +10,6 @@ const meta = {
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
-  },
-  args: {
-    onLogin: action('onLogin'),
-    onLogout: action('onLogout'),
-    onCreateAccount: action('onCreateAccount'),
   },
 } satisfies Meta<typeof Header>;
 
