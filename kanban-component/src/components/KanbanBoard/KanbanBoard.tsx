@@ -17,6 +17,7 @@ export function KanbanBoard({
   onTaskUpdate,
   onTaskDelete,
 }: KanbanViewProps): React.ReactNode {
+  const dragAndDrop = useDragAndDrop();
   const {
     dragState,
     sensors,
@@ -24,7 +25,7 @@ export function KanbanBoard({
     handleDragOver,
     handleDragEnd: handleDragEndInternal,
     collisionDetection,
-  } = useDragAndDrop();
+  } = dragAndDrop;
 
   const [selectedTask, setSelectedTask] = useState<KanbanTask | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
