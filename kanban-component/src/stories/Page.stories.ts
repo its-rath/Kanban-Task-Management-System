@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { expect, userEvent, within } from 'storybook/test';
+import { expect } from '@storybook/jest';
+import { userEvent, within } from '@storybook/testing-library';
 
 import { Page } from './Page';
 

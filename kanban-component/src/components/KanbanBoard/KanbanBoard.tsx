@@ -9,14 +9,14 @@ import { useDragAndDrop } from '@/hooks/useDragAndDrop';
 /**
  * Main Kanban Board component
  */
-export const KanbanBoard: React.FC<KanbanViewProps> = ({
+export function KanbanBoard({
   columns,
   tasks,
   onTaskMove,
   onTaskCreate,
   onTaskUpdate,
   onTaskDelete,
-}) => {
+}: KanbanViewProps): React.ReactNode {
   const {
     dragState,
     sensors,
@@ -136,16 +136,16 @@ export const KanbanBoard: React.FC<KanbanViewProps> = ({
         isOpen={modalOpen}
         onClose={handleModalClose}
         task={selectedTask}
-        onSave={(taskId, updates) => {
+        onSave={(taskId: string, updates: Partial<KanbanTask>) => {
           if (selectedTask?.id === 'new' && creatingInColumn) {
-            handleTaskCreate({ 
-              ...updates, 
-              id: 'new', 
-              status: creatingInColumn, 
-              createdAt: new Date() 
+            handleTaskCreate({
+              ...updates,
+              id: 'new',
+              status: creatingInColumn,
+              createdAt: new Date(),
             } as KanbanTask);
           } else if (taskId !== 'new') {
-            onTaskUpdate(taskId, updates);
+            onTaskUpdate(taskId, updates as Partial<KanbanTask>);
           }
         }}
         onDelete={onTaskDelete}
