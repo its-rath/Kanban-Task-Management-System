@@ -1,0 +1,23 @@
+{
+  "css.customData": [
+    ".vscode/tailwind.json"
+  ],
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "postcss": "css"
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+}
