@@ -76,13 +76,18 @@ export function KanbanBoard({
     setModalOpen(true);
   }, []);
 
-  const handleTaskCreate = useCallback((task: KanbanTask) => {
-    const { id: _, ...newTask } = task; // Remove the temporary 'new' id
-    onTaskCreate(task.status, newTask as Omit<KanbanTask, 'id'>);
-    setModalOpen(false);
-    setSelectedTask(null);
-    setCreatingInColumn(null);
-  }, [onTaskCreate]);
+  const handleTaskCreate = useCallback(
+    (task: KanbanTask) => {
+      const { id: _, ...newTask } = task; // Remove the temporary 'new' id
+      if (creatingInColumn) {
+        onTaskCreate(creatingInColumn, newTask as Omit<KanbanTask, 'id'>);
+      }
+      setModalOpen(false);
+      setSelectedTask(null);
+      setCreatingInColumn(null);
+    },
+    [onTaskCreate, creatingInColumn]
+  );
 
   const handleModalClose = useCallback(() => {
     setModalOpen(false);
